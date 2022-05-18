@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'arastirmaci_detailVis' arastirmaci.isim %}">Neo4j Visualization</a>
+<div>
+    <p><span style="font-weight: bold;">Araştırmacı Adı: </span> {{arastirmaci.isim}}</p>
+    <p><span style="font-weight: bold;">Ortakları: </span>
+        {% for i in arastirmaci.ortak %}
+            <a href="{% url 'arastirmaci_detail' i.isim %}">{{i.isim}}</a>,
+        {% endfor %}
+    </p>
+    <h4>Yayınları:</h4>
+        {% for i in arastirmaci.Yazdı %}
+        <p>
+            <span style="font-weight: bold;">İsim:</span>{{i.isim}} - <span style="font-weight: bold;">Yıl:</span> {{i.yıl}} | 
+            {% for j in i.yazdı %}
+            <span style="font-weight: bold;">Tür:</span> {{j.tür}} , <span style="font-weight: bold;">Yer:</span> {{j.yer}}
+            {% endfor %}
+        </p>
+        {% endfor %}
+    
+</div>
+    
+
+
+{% endblock content %}

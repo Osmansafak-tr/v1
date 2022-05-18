@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="/yayin/" method="post" style="margin: 10px 0;">
+    {% csrf_token %}
+    <label for="name" style="font-weight: 600;">Aranacak Değer:</label>
+    <input type="text" id="name" name="name" style="margin-right: 5px;">
+
+    <label for="türler" style="margin: 0 3px; font-weight: 600;">Arama Türü:</label>
+    <div id="türler" style="display: inline;">
+        <input type="radio" id="html" name="arama_turu" value="arastirmaci_adi">
+        <label for="html">Araştırmacı Adı</label>
+        <input type="radio" id="css" name="arama_turu" value="yayin_adi">
+        <label for="css">Yayın Adı</label>
+        <input type="radio" id="javascript" name="arama_turu" value="yayin_yili">
+        <label for="javascript">Yayın Yılı</label>
+    </div>
+
+    <button type="submit" class="btn btn-success">Yayın Ara</button>
+</form>
+
+
+{% for yayin in yayinlar %}
+<div class="card" style="margin-bottom: 20px;">
+    <div class="card-header">
+        <span style="font-weight: 500;">Yazarlar : 
+            {% for arastirmaci in yayin.arastırmacı %}
+                <a href="{% url 'arastirmaci_detail' arastirmaci.isim %}"><span style="font-weight: 400;">{{arastirmaci.isim}} ,</span></a>
+            {% endfor %}
+
+            | Tarih : <span style="font-weight: 400;">{{yayin.yıl}}</span>
+        </span>
+        <span class="text-muted"></span>
+    </div>
+
+    <div class="card-body">
+        <p>{{yayin.isim}}</p>
+    </div>
+
+    <div class="card-footer">
+        <p>
+            <span class="font-weight-bold">
+                {% for yayin_tur in yayin.yazdı %}
+                    <p style="font-weight: 500;">Tür : <span style="font-weight: 400;">{{yayin_tur.tür}}</span> |
+                        Yer : <span style="font-weight: 400;">{{yayin_tur.yer}}</span>
+                    </p> 
+                {% endfor %}
+            </span>
+        </p>
+    </div>
+
+</div>
+{% endfor %}
+
+
+{% endblock content %}

@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <title>Neovis.js Simple Example</title>
+    <style type="text/css">
+        html, body {
+            font: 16pt arial;
+        }
+
+        #viz {
+            width: 1900px;
+            height: 700px;
+            border: 1px solid lightgray;
+            font: 22pt arial;
+        }
+    </style>
+</head>
+<body onload="draw()">
+    
+
+    <div id="viz"></div>
+
+    <script type="text/javascript">
+
+        var viz;
+
+        function draw() {
+            var config = {
+                container_id: "viz",
+                server_url: "bolt://localhost:7687",
+                server_user: "neo4j",
+                server_password: "123",
+                labels: {
+                    "arastırmacı": {
+                        caption: "isim",
+                        size:10,
+                    },
+                    "yayın":{
+                        caption:"yıl",
+                        size:8,
+                    },
+                    "yayın_tür":{
+                        caption:"tür",
+                        size:6,
+                    }
+                },
+                relationships: {
+                    "ortak":{
+                        thickness: 8,
+                    },
+                    "Yazdı":{
+                        thickness: 6,
+                    },
+                    "yayınlandı":{
+                        thickness: 5,
+                    }
+                },
+                initial_cypher: "Match (a1:arastırmacı)-[r:ortak]->(a2:arastırmacı),(a:arastırmacı)-[yaz:Yazdı]->(y:yayın),(y1:yayın)-[yay:yayınlandı]->(t:yayın_tür) Where a1.isim='{{isim}}' and a.isim=a1.isim and y1.isim=y.isim Return *"
+            };
+
+            viz = new NeoVis.default(config);
+            viz.render();
+        }
+    </script>
+
+    <script src="https://cdn.neo4jlabs.com/neovis.js/v1.5.0/neovis.js"></script>
+
+</body>    
+</html>

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+<div style="margin: 100px 40%;">
+    <h3 style="text-align: center;">Yayın Ekle</h3>
+    <form action="/admin/yayinlar/" method="post" style="margin-top: 10px;">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" value="Ekle" class="btn btn-primary">
+    </form>
+</div>
+
+{% endblock content %}
