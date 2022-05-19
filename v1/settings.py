@@ -136,8 +136,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-NEO4J_USERNAME = 'neo4j'
-NEO4J_PASSWORD = '123'
+NEO4J_USERNAME = 'neo4j' #Change this with yoru neo4j username
+NEO4J_PASSWORD = '123' #Change this with your neo4j password
 NEOMODEL_NEO4J_BOLT_URL = os.environ.get('NEO4J_BOLT_URL','bolt://'+NEO4J_USERNAME+':'+NEO4J_PASSWORD+'@localhost:7687')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
